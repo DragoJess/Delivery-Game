@@ -1,28 +1,44 @@
+using TMPro;
 using UnityEngine;
 
 public class DeliveryDestination : MonoBehaviour
 {
-    [SerializeField] DestinationType Type;
-    public void CheckPackage(DeliveryListItem Item)
+    [SerializeField] string LocationName;
+    [SerializeField] SpecialLocation Special;
+    [SerializeField] TMP_Text InteractText;
+    public void Deliver(Package package)
     {
-        RaycastHit2D Hit = Physics2D.CircleCast(transform.position, 2, Vector2.right);
-
-        if (Hit)
-            if (Hit.transform.gameObject.tag == "Package")
+        if(package.Destination == LocationName)
+        {
+            package.Status = PackageStatus.Delivered;
+        }
+        else
+        {
+            switch(Special)
             {
-                UIManager.Instance.Message("Delivery Successful");
-                if (Hit.transform.GetComponent<Package>().Destination == Item.TargetLocation)
-                    Item.State = Type == DestinationType.Warehouse ? DeliveryState.Returned : DeliveryState.Delivered;
-                else
-                    Item.State = Type == DestinationType.PlayerHouse ? DeliveryState.Taken : DeliveryState.DeliveredWrong;
-
-                Item.UpdateStateDisplay();
-                    Destroy(Hit.transform.gameObject);
+                case SpecialLocation.ReturnCenter:
+                    package.Status = PackageStatus.DeliveredWrong;
+                    break;
+                case SpecialLocation.PlayerHouse:
+                    package.Status = PackageStatus.Saved;
+                    break;
+                default:
+                    package.Status = PackageStatus.DeliveredWrong;
+                    break;
             }
+        }
 
     }
-}
-public enum DestinationType
-{
-    Customer, Warehouse, PlayerHouse
+    private void OnTriggerEnter2D(Collider2D collisions)
+    {
+        InteractText.text = LocationName;
+    }
+    private void OnTriggerExit2D(Collider2D collisions)
+    {
+        InteractText.text = string.Empty;
+    }
+    enum SpecialLocation
+    {
+        No, ReturnCenter, PlayerHouse
+    }
 }
