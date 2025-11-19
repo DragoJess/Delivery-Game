@@ -3,6 +3,8 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
+
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
@@ -15,6 +17,13 @@ public class PlayerController : MonoBehaviour
     Package CurrentHolding;
     [SerializeField] Transform HoldPosition;
 
+    private bool _moving;
+    private Coroutine _moveRoutine;
+    [SerializeField] private AudioClip footstepSound;
+    [SerializeField] private AudioClip pickUpSound;
+    [SerializeField] private AudioClip putDownSound;
+    [SerializeField] private AudioClip teleportSound;
+     
     [SerializeField] LayerMask LayerPackages, LayerTeleporters, LayerDestinations;
     [SerializeField] Animator SceneChangeAnim;
     [SerializeField] Animator PackageInfo;
@@ -40,7 +49,10 @@ public class PlayerController : MonoBehaviour
         {
             RaycastHit2D Hit = Physics2D.CircleCast(transform.position, .4f, Vector2.right, 0, LayerTeleporters);
             if (Hit)
+            {
                 StartCoroutine(TeleportSequence(Hit.transform.GetComponent<Teleporter>()));
+                SoundManager.Instance.PlaySound(teleportSound, transform, 1f);
+            }
         }
     }
     IEnumerator TeleportSequence(Teleporter teleporter)
@@ -74,6 +86,7 @@ public class PlayerController : MonoBehaviour
                     CurrentHolding = Hit.transform.GetComponent<Package>();
                     Hit.transform.SetParent(HoldPosition);
                     Hit.transform.localPosition = Vector3.zero;
+                    SoundManager.Instance.PlaySound(pickUpSound, transform, 0.6f);
                 }    
 
             }
@@ -81,8 +94,10 @@ public class PlayerController : MonoBehaviour
             {
                 RaycastHit2D Hit = Physics2D.CircleCast(transform.position, .4f, Vector2.right, 0, LayerPackages);
 
-                if (Hit)
+                if (Hit) {
                     Hit.transform.GetComponent<DeliveryDestination>();
+                    SoundManager.Instance.PlaySound(putDownSound, transform, 0.6f);
+                }
                 CurrentHolding.CheckSnapPosition();
                 CurrentHolding = null;
             }
@@ -90,7 +105,23 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+         
         self.linearVelocity = (CurrentDirection * (SprintDuration > 0 ? SprintSpeed : MoveSpeed) * Time.deltaTime);
+        if (self.linearVelocity.magnitude > 0 && !_moving)
+        {
+            _moving = true;
+            _moveRoutine = StartCoroutine(SoundManager.Instance.PlayRepeatingSound(footstepSound, transform, 1f, 0.3f));
+        }
+        else if (self.linearVelocity.magnitude == 0)
+        {
+            if (_moveRoutine != null) StopCoroutine(_moveRoutine);
+            _moving = false;
+        }
+
+        
+
         SprintDuration -= Time.deltaTime;
     }
+    
+    
 }
