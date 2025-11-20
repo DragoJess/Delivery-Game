@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip putDownSound;
     [SerializeField] private AudioClip teleportSound;
      
-    [SerializeField] LayerMask LayerPackages, LayerTeleporters, LayerDestinations;
+    [SerializeField] LayerMask LayerPackages, LayerTeleporters;
     [SerializeField] Animator SceneChangeAnim;
     [SerializeField] Animator PackageInfo;
     [SerializeField] TMP_Text PackageAddress, PackageDescription;
@@ -84,9 +84,11 @@ public class PlayerController : MonoBehaviour
                 if(Hit)
                 {
                     CurrentHolding = Hit.transform.GetComponent<Package>();
+                    CurrentHolding.Status = PackageStatus.NotDelivered;
                     Hit.transform.SetParent(HoldPosition);
                     Hit.transform.localPosition = Vector3.zero;
                     SoundManager.Instance.PlaySound(pickUpSound, transform, 0.6f);
+                    DeliveryManager.Instance.UpdateDeliveryChecklist();
                 }    
 
             }
@@ -99,7 +101,9 @@ public class PlayerController : MonoBehaviour
                     SoundManager.Instance.PlaySound(putDownSound, transform, 0.6f);
                 }
                 CurrentHolding.CheckSnapPosition();
+                CurrentHolding.TryDeliver();
                 CurrentHolding = null;
+
             }
 
     }

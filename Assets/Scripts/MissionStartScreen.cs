@@ -1,0 +1,38 @@
+using System.Collections;
+using UnityEngine;
+
+public class MissionStartScreen : MonoBehaviour
+{
+    public static MissionStartScreen Instance;
+    [SerializeField] DeliverySlip[] Slips;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+    public void ShowTodaysPackages()
+    {
+        foreach(var slip in Slips)
+            slip.gameObject.SetActive(false);
+        StartCoroutine(ShowSlipsAsync());
+    }
+    IEnumerator ShowSlipsAsync()
+    {
+        for (int i = 0; i < DeliveryManager.Instance.Packages.Length; i++)
+        {
+            var Package = DeliveryManager.Instance.Packages[i];
+            Slips[i].gameObject.SetActive(true);
+            Slips[i].SetInfo(Package.Destination, Package.Description);
+            yield return new WaitForSeconds(Random.Range(0f, .2f));
+        }
+    }
+    public void CloseScreen()
+    {
+        StartCoroutine(CloseWithDelay());
+    }
+    IEnumerator CloseWithDelay()
+    {
+        yield return new WaitForSeconds(.16f);
+        gameObject.SetActive(false);
+    }
+}

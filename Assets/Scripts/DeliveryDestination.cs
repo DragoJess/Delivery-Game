@@ -8,26 +8,37 @@ public class DeliveryDestination : MonoBehaviour
     [SerializeField] TMP_Text InteractText;
     public void Deliver(Package package)
     {
-        if(package.Destination == LocationName)
+        if(Special == SpecialLocation.ReturnCenter)
         {
-            package.Status = PackageStatus.Delivered;
+            if (package.Destination == LocationName)
+                package.Status = PackageStatus.ReturnedCorrectly;
+            else
+                package.Status = PackageStatus.ReturnedWrong;
         }
         else
         {
-            switch(Special)
+            if (package.Destination == LocationName)
             {
-                case SpecialLocation.ReturnCenter:
-                    package.Status = PackageStatus.DeliveredWrong;
-                    break;
-                case SpecialLocation.PlayerHouse:
-                    package.Status = PackageStatus.Saved;
-                    break;
-                default:
-                    package.Status = PackageStatus.DeliveredWrong;
-                    break;
+                package.Status = PackageStatus.Delivered;
+            }
+            else
+            {
+                switch (Special)
+                {
+                    case SpecialLocation.ReturnCenter:
+                        package.Status = PackageStatus.DeliveredWrong;
+                        break;
+                    case SpecialLocation.PlayerHouse:
+                        package.Status = PackageStatus.Saved;
+                        break;
+                    default:
+                        package.Status = PackageStatus.DeliveredWrong;
+                        break;
+                }
             }
         }
-
+        DeliveryManager.Instance.UpdateDeliveryChecklist();
+        package.Hide();
     }
     private void OnTriggerEnter2D(Collider2D collisions)
     {
