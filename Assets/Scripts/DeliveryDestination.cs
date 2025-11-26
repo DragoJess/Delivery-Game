@@ -6,6 +6,12 @@ public class DeliveryDestination : MonoBehaviour
     [SerializeField] string LocationName;
     [SerializeField] SpecialLocation Special;
     [SerializeField] TMP_Text InteractText;
+    [SerializeField] TMP_Text NameText;
+
+    private void Awake()
+    {
+        NameText.text = LocationName;
+    }
     public void Deliver(Package package)
     {
         if(Special == SpecialLocation.ReturnCenter)
@@ -42,7 +48,7 @@ public class DeliveryDestination : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collisions)
     {
-        InteractText.text = LocationName;
+        InteractText.text = "Space";
     }
     private void OnTriggerExit2D(Collider2D collisions)
     {

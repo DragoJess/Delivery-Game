@@ -18,12 +18,8 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySound(AudioClip audioClip, Transform spawnTransform, float volume)
     {
-        AudioSource audioSource = Instantiate(soundObject, spawnTransform.position, Quaternion.identity);
-        audioSource.clip = audioClip;
-        audioSource.volume = volume;
-        //audioSource.loop = loop;
-        audioSource.Play();
-        Destroy(audioSource.gameObject, audioClip.length);
+        soundObject.volume = volume;
+        soundObject.PlayOneShot(audioClip);
     }
 
     public IEnumerator PlayRepeatingSound(AudioClip audioClip, Transform spawnTransform, float volume, float delay)

@@ -6983,8 +6983,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faae75aa4791076428011ee52105e515, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  MoveSpeed: 500
-  SprintSpeed: 1000
+  MoveSpeed: 300
+  SprintSpeed: 700
   CurrentDirection: {x: 0, y: 0, z: 0}
   Sprinting: 0
   HoldPosition: {fileID: 368051074}
