@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Gameplay Prototype.unity
-    guid: 363d823464d7b934781f4e87e738ec87
+    path: Assets/Scenes/Gameplay Real.unity
+    guid: c10399f91e8ae9a4a84ef35bfc57affd
+  - enabled: 1
+    path: Assets/Scenes/Day 2.unity
+    guid: af7d0eabc4bf4514986318d673d8baf2
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 0dc50c95b2c4d184592df8b2df6bf80a, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

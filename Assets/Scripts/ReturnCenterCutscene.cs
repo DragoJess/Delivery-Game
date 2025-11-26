@@ -1,9 +1,11 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ReturnCenterCutscene : MonoBehaviour
 {
     [SerializeField] GameObject PackageProp;
+    [SerializeField] Animator EndOfDay;
     public void Play()
     {
         PlayerController.Instance.transform.position = transform.position + new Vector3(0, 2.5f, 0);
@@ -21,5 +23,9 @@ public class ReturnCenterCutscene : MonoBehaviour
                 yield return new WaitForSeconds(Random.Range(.5f, 1f));
             }
         }
+        yield return new WaitForSeconds (3);
+        EndOfDay.SetTrigger("Play");
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene(GameCycleManager.Instance.Day);
     }
 }
