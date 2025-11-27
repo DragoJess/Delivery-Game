@@ -5,6 +5,7 @@ public class MissionStartScreen : MonoBehaviour
 {
     public static MissionStartScreen Instance;
     [SerializeField] DeliverySlip[] Slips;
+    [SerializeField] AudioSource BGM;
 
     private void Awake()
     {
@@ -34,5 +35,6 @@ public class MissionStartScreen : MonoBehaviour
     {
         yield return new WaitForSeconds(.16f);
         gameObject.SetActive(false);
+        BGM.mute = false;
     }
 }

@@ -5,20 +5,22 @@ using System.Collections;
 public class ResultScreen : MonoBehaviour
 {
     [SerializeField] TMP_Text DayNumber, PackagesDelivered, PackagesLost, Rank;
+    [SerializeField] AudioSource BGM;
     public void OpenPanel()
     {
+        BGM.mute = true;
         DayNumber.text = $"Day{GameCycleManager.Instance.Day}";
         var Report = DeliveryManager.Instance.GetPackageReport();
         PackagesDelivered.text = $"Packages Delivered: {Report.Correct + Report.Wrong + Report.Saved}";
         PackagesLost.text = $"Incorrect Deliveries: {Report.Wrong + Report.Saved}";
 
-        if (Report.Wrong == 0)
+        if (Report.Wrong + Report.Saved == 0)
             Rank.text = "A";
-        else if (Report.Wrong <= 1)
+        else if (Report.Wrong + Report.Saved <= 1)
             Rank.text = "B";
-        else if (Report.Wrong <= 2)
+        else if (Report.Wrong + Report.Saved <= 2)
             Rank.text = "C";
-        else if (Report.Wrong <= 3)
+        else if (Report.Wrong + Report.Saved <= 3)
             Rank.text = "D";
         else
             Rank.text = "Fired";

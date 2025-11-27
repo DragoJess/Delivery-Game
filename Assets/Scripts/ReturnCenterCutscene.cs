@@ -28,4 +28,15 @@ public class ReturnCenterCutscene : MonoBehaviour
         yield return new WaitForSeconds(3);
         SceneManager.LoadScene(GameCycleManager.Instance.Day);
     }
+    public void NextDay()
+    {
+        StartCoroutine(DayChange());
+    }
+    IEnumerator DayChange()
+    {
+
+        EndOfDay.SetTrigger("Play");
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene(GameCycleManager.Instance.Day);
+    }
 }
