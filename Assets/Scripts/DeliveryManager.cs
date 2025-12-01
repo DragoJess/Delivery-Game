@@ -38,7 +38,10 @@ public class DeliveryManager : MonoBehaviour
                 break;
         }
         if (AllDelivered)
+        {
+
             OnCompletedDay.Invoke();
+        }
 
 
     }
@@ -52,8 +55,8 @@ public class DeliveryManager : MonoBehaviour
                 case PackageStatus.Delivered: Report.Correct++; break;
                 case PackageStatus.DeliveredWrong: Report.Wrong++; break;
                 case PackageStatus.Saved: Report.Saved++; break;
-                case PackageStatus.ReturnedCorrectly: Report.Correct++; break;
-                case PackageStatus.ReturnedWrong: Report.Correct++; break;
+                case PackageStatus.ReturnedCorrectly: Report.Correct++; Report.Returns++; break;
+                case PackageStatus.ReturnedWrong: Report.Correct++; Report.Returns++; break;
                 default: Report.Wrong++; break;
 
             }
@@ -66,4 +69,5 @@ public class PackageReport
     public int Correct;
     public int Wrong;
     public int Saved;
+    public int Returns;
 }

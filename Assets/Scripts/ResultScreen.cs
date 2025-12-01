@@ -13,6 +13,9 @@ public class ResultScreen : MonoBehaviour
         var Report = DeliveryManager.Instance.GetPackageReport();
         PackagesDelivered.text = $"Packages Delivered: {Report.Correct + Report.Wrong + Report.Saved}";
         PackagesLost.text = $"Incorrect Deliveries: {Report.Wrong + Report.Saved}";
+        StatTracker.Instance.CorrectDelivery += Report.Correct;
+        StatTracker.Instance.WrongDelivery += Report.Wrong;
+        StatTracker.Instance.Saved += Report.Saved;
 
         if (Report.Wrong + Report.Saved == 0)
             Rank.text = "A";
