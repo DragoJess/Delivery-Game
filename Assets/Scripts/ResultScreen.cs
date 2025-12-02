@@ -6,9 +6,11 @@ public class ResultScreen : MonoBehaviour
 {
     [SerializeField] TMP_Text DayNumber, PackagesDelivered, PackagesLost, Rank;
     [SerializeField] AudioSource BGM;
+    [SerializeField] AudioClip clipboardSound;
     public void OpenPanel()
     {
         BGM.mute = true;
+        SoundManager.Instance.PlaySound(clipboardSound, transform, 0.8f);
         DayNumber.text = $"Day{GameCycleManager.Instance.Day}";
         var Report = DeliveryManager.Instance.GetPackageReport();
         PackagesDelivered.text = $"Packages Delivered: {Report.Correct + Report.Wrong + Report.Saved}";

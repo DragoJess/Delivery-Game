@@ -5507,10 +5507,10 @@ MonoBehaviour:
   CurrentDirection: {x: 0, y: 0, z: 0}
   Sprinting: 0
   HoldPosition: {fileID: 368051074}
-  footstepSound: {fileID: 8300000, guid: ff0599f41affc4b04be63f50e517d278, type: 3}
-  pickUpSound: {fileID: 8300000, guid: 0317ef82c945a4bed9226b54371c9ad3, type: 3}
-  putDownSound: {fileID: 8300000, guid: 1dc90eeeed3c54e76bc08cca52900e12, type: 3}
-  teleportSound: {fileID: 8300000, guid: 786dcde01f6014872bf1c0a0daf219fd, type: 3}
+  footstepSound: {fileID: 8300000, guid: 86378c904aa724fcbaedc768edc2e3fc, type: 3}
+  pickUpSound: {fileID: 8300000, guid: 22be8b4bfdf274d0f83a2f95fe3c3ca8, type: 3}
+  putDownSound: {fileID: 8300000, guid: 8c60172b1b85e4d8c82b4790bbc73fd0, type: 3}
+  teleportSound: {fileID: 8300000, guid: b031dd3ff7dd74e109d214fb4adea214, type: 3}
   LayerPackages:
     serializedVersion: 2
     m_Bits: 64
@@ -9770,6 +9770,7 @@ MonoBehaviour:
   PackagesLost: {fileID: 234701884}
   Rank: {fileID: 1562614427}
   BGM: {fileID: 738555270}
+  clipboardSound: {fileID: 8300000, guid: b7a32b2023c2140c7a3ab78e8220cb9d, type: 3}
 --- !u!95 &1896082386
 Animator:
   serializedVersion: 7

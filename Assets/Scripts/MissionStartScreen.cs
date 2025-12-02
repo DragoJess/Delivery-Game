@@ -6,6 +6,7 @@ public class MissionStartScreen : MonoBehaviour
     public static MissionStartScreen Instance;
     [SerializeField] DeliverySlip[] Slips;
     [SerializeField] AudioSource BGM;
+    [SerializeField] AudioClip startSound;
 
     private void Awake()
     {
@@ -30,11 +31,13 @@ public class MissionStartScreen : MonoBehaviour
     public void CloseScreen()
     {
         StartCoroutine(CloseWithDelay());
+        SoundManager.Instance.PlaySound(startSound, transform, 0.2f);
     }
     IEnumerator CloseWithDelay()
     {
         yield return new WaitForSeconds(.16f);
         gameObject.SetActive(false);
+        //BGM.time = 0f;
         BGM.mute = false;
     }
 }

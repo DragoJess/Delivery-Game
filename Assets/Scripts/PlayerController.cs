@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
             if (Hit)
             {
                 StartCoroutine(TeleportSequence(Hit.transform.GetComponent<Teleporter>()));
-                SoundManager.Instance.PlaySound(teleportSound, transform, 1f);
+                SoundManager.Instance.PlaySound(teleportSound, transform, 0.4f);
             }
         }
     }
@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
                     CurrentHolding.Status = PackageStatus.NotDelivered;
                     Hit.transform.SetParent(HoldPosition);
                     Hit.transform.localPosition = Vector3.zero;
-                    SoundManager.Instance.PlaySound(pickUpSound, transform, 0.6f);
+                    SoundManager.Instance.PlaySound(pickUpSound, transform, 0.5f);
                     DeliveryManager.Instance.UpdateDeliveryChecklist();
                 }    
 
@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
 
                 if (Hit) {
                     Hit.transform.GetComponent<DeliveryDestination>();
-                    SoundManager.Instance.PlaySound(putDownSound, transform, 0.6f);
+                    SoundManager.Instance.PlaySound(putDownSound, transform, 0.5f);
                 }
                 CurrentHolding.CheckSnapPosition();
                 CurrentHolding.TryDeliver();
@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
         if (self.linearVelocity.magnitude > 0 && !_moving)
         {
             _moving = true;
-            _moveRoutine = StartCoroutine(SoundManager.Instance.PlayRepeatingSound(footstepSound, transform, 1f, 0.3f));
+            _moveRoutine = StartCoroutine(SoundManager.Instance.PlayRepeatingSound(footstepSound, transform, 0.5f, 0.4f));
         }
         else if (self.linearVelocity.magnitude == 0)
         {
