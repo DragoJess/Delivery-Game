@@ -3740,7 +3740,7 @@ MonoBehaviour:
   - {fileID: 1154495612}
   - {fileID: 1900453527}
   BGM: {fileID: 738555270}
-  startSound: {fileID: 0}
+  startSound: {fileID: 8300000, guid: f77a3b36fe40f4ab39ef4085422d1f64, type: 3}
 --- !u!114 &741574611
 MonoBehaviour:
   m_ObjectHideFlags: 0
