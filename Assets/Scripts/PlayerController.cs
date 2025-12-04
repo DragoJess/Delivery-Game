@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool Sprinting;
     Package CurrentHolding;
     [SerializeField] Transform HoldPosition;
-
+    [SerializeField] Sprite Forward, Back, Left, Right;
     private bool _moving;
     private Coroutine _moveRoutine;
     [SerializeField] private AudioClip footstepSound;
@@ -71,6 +71,10 @@ public class PlayerController : MonoBehaviour
                 PackageAddress.text = CurrentHolding.Destination;
                 PackageDescription.text = CurrentHolding.Description;
             }
+            else
+            {
+                PackageInfo.SetBool("Open", false);
+            }
 
         }
     }
@@ -84,6 +88,8 @@ public class PlayerController : MonoBehaviour
                 if(Hit)
                 {
                     CurrentHolding = Hit.transform.GetComponent<Package>();
+                    if (CurrentHolding.Status != PackageStatus.NotDelivered)
+                        return;
                     CurrentHolding.Status = PackageStatus.NotDelivered;
                     Hit.transform.SetParent(HoldPosition);
                     Hit.transform.localPosition = Vector3.zero;
@@ -103,7 +109,7 @@ public class PlayerController : MonoBehaviour
                 CurrentHolding.CheckSnapPosition();
                 CurrentHolding.TryDeliver();
                 CurrentHolding = null;
-
+                PackageInfo.SetBool("Open", false);
             }
 
     }

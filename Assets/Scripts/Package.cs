@@ -9,12 +9,15 @@ public class Package : MonoBehaviour
     public PackageStatus Status;
     [SerializeField] LayerMask LayerSnapPoints, LayerDestinations;
     SpriteRenderer sprite;
+    Collider2D col;
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
+        col = GetComponent<Collider2D>();
     }
     public void Hide()
     {
+        col.enabled = false;
         StartCoroutine(FadeSprite());
     }
     IEnumerator FadeSprite()

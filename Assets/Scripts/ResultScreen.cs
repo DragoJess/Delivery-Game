@@ -28,7 +28,7 @@ public class ResultScreen : MonoBehaviour
         else if (Report.Wrong + Report.Saved <= 3)
             Rank.text = "D";
         else
-            Rank.text = "Fired";
+            Rank.text = "F";
     }
     public void CloseScreen()
     {

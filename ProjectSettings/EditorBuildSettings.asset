@@ -22,7 +22,10 @@ EditorBuildSettings:
     guid: 634f8a4ed521c4347b371a82ebd6ad79
   - enabled: 1
     path: Assets/Scenes/Day 6.unity
-    guid: 6f6dac061aa29064989098a7260e8979
+    guid: 1b061706c676f114498e60189c9cc899
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: d7e088a2d9bcd79459d5050ccbcd7b77
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 0dc50c95b2c4d184592df8b2df6bf80a, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
